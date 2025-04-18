@@ -1,62 +1,225 @@
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
     body {
-        font-family: "Arial", sans-serif;
+        font-family: 'Poppins', sans-serif;
         font-size: 14px;
+        margin: 20px;
+        background: #f9f9f9;
+        color: #333;
+    }
+
+    h1,
+    h2,
+    h3 {
+        font-family: 'Times New Roman', serif;
     }
 
     h2 {
-        font-family: 'Times New Roman', Times, serif;
+        margin: 10px 0;
+    }
+
+    form,
+    .no-print {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        max-width: 700px;
+        margin-bottom: 20px;
+    }
+
+    #box {
+        text-align: right;
+        position: relative;
+
+    }
+
+    input[type="number"] {
+        padding: 10px;
+        margin: 5px 10px 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 120px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #1e88e5;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #1565c0;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         font-size: 13px;
+        margin-top: 10px;
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    th {
+        background-color: #f0f0f0;
+        font-weight: 600;
+        color: #333;
     }
 
     th,
     td {
-        border: 1px solid #000;
-        padding: 8px;
+        border: 1px solid #ddd;
+        padding: 10px;
         text-align: center;
     }
 
-    #invoiceDate {
-        text-align: right;
+    tr:nth-child(even) {
+        background-color: #fafafa;
     }
-    
+
+    tr:hover {
+        background-color: #f1f7ff;
+    }
+
+    #invoiceDate {
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .edit-btn {
+        background-color: #ffa726;
+        color: #fff;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .edit-btn:hover {
+        background-color: #fb8c00;
+    }
+
     @media print {
+        body {
+            background: white;
+        }
+
         .no-print {
             display: none;
         }
-        td:last-child, th:last-child {
-            display: none;
+
+        td:last-child,
+        th:last-child {
+            display: none !important;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        h2,
+        h3 {
+            text-align: center;
         }
     }
+
+    .signature-section {
+        text-align: right;
+        margin-top: 50px;
+        font-family: 'Times New Roman', serif;
+    }
+
+    .input-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    #entryForm {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 100px;
+        align-items: flex-end;
+    }
+    #btt{
+        margin: right 200px;
+        text-align: center;
+    }
+
+    /* .input-side {
+        min-width: 200px;
+        text-align: left;
+    } */
+    .input-side {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    width: 400px;
+}
+
 </style>
 
 
+
 <h1 class="no-print">EntryPoint:</h1>
-<form id="entryForm" class="no-print">
+<!-- <form id="entryForm" class="no-print">
     <input type="number" id="bags" placeholder="bags" required>
     <input type="number" id="oil" step="0.01" min="0" placeholder="oil%" required>
     <input type="number" id="rate" step="0.01" placeholder="rate" required>
-    
+
     <button type="submit">Submit</button>
 </form>
-<!-- Keep this OUTSIDE the form -->
-<div class="no-print">
+<!-- Keep this OUTSIDE the form 
+<div class="no-print" id="box">
     <label>Majduri: <input type="number" id="majdur" step="0.01" placeholder="MAJDURI"> <br><br>
         MANDI: <input type="number" id="mandi" placeholder="3.75(MANDI + DAMI + KKF)" readonly></label><br><br>
     <button id="bt" onclick="printTable()">Print as PDF</button>
+</div> -->
+
+<div class="no-print input-row">
+    <form id="entryForm">
+        <input type="number" id="bags" placeholder="bags" required>
+        <input type="number" id="oil" step="0.01" min="0" placeholder="oil%" required>
+        <input type="number" id="rate" step="0.01" placeholder="rate" required>
+        <button type="submit" id="btt">Submit</button>
+    </form>
+
+    <div class="input-side">
+        <label>Majduri :  <input type="number" id="majdur" step="0.01" placeholder="MAJDURI">
+        </label><br><br>
+        <label>MANDI : <input type="number" id="mandi" placeholder="3.75(MANDI + DAMI + KKF)" readonly>
+        </label><br><br>
+        <button id="bt" onclick="printTable()">Print as PDF</button>
+    </div>
 </div>
+
 
 <div id="printArea">
 
     <div style="text-align: center; font-family: serif;">
         <h2><strong>ROSHANLAL KEDARNATH</strong></h2>
         <p>B-21 NEW MANDI YARD MANDAWAR</p>
-        <p><strong>Party: C P AGRO INDUSTRIES ROOPBAS</strong> | Date: <span id="invoiceDate"></span></p>
+        <p><strong>Party: C P AGRO INDUSTRIES ROOPBAS</strong></p>
+        Date:<p id="invoiceDate"> <span ></span></p>
     </div>
 
     <table border="1" id="dataTable">
@@ -114,9 +277,10 @@
     </table>
 
     <br>
-    <p>For Roshanlal Kedarnath</p>
-    <br><br>
-    <h3>Authorised sign.</h3>
+    <div class="signature-section">
+        <h3>For Roshanlal Kedarnath</h3><br><br>
+        <p>Authorised sign.</p>
+    </div>
 
 </div>
 
@@ -180,8 +344,8 @@
             $('#rate').val(cells.eq(2).text());
             $('#oil').val(cells.eq(3).text());
         });
-        
-        $('#majdur').on('change', function() {
+
+        $('#majdur').on('change', function () {
             updateTotals();
         });
     });
@@ -236,7 +400,7 @@
         $('#Total').text(Total.toFixed(2));
         $('#gstAmount').text(gst.toFixed(2));
         $('#grandTotal').text(grandTotal.toFixed(2));
-        
+
         // Update the readonly mandi field
         $('#mandi').val(mandiAmount.toFixed(2));
     }
@@ -246,16 +410,16 @@
             alert("Please enter Majduri before printing.");
             return;
         }
-        
+
         // Force update all totals before printing
         updateTotals();
-        
+
         // Get the print area HTML
         const printContent = document.getElementById('printArea').innerHTML;
-        
+
         // Create a new window for printing
         const printWindow = window.open('', '_blank');
-        
+
         // Write the HTML content
         printWindow.document.write(`
             <!DOCTYPE html>
@@ -283,7 +447,7 @@
             </body>
             </html>
         `);
-        
+
         printWindow.document.close();
     }
 </script>

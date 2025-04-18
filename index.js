@@ -10,7 +10,7 @@ app.use(express.static('public'));
 
 app.get('/',(req,res)=>{
     const data = [];
-    res.render('home4.ejs', {data});
+    res.render('home.ejs', {data});
 });
 
 app.listen(port, () =>{
